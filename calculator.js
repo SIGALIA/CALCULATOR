@@ -432,7 +432,9 @@ function saveNewCalculation() {
     // Close modal and redirect to dashboard with reload
     closeNewCalculationModal();
     window.location.href = 'dashboard.html'; // Redirect to dashboard to reload projects
-}// פונקציה לשמירת הטבלה כ-PDF
+}
+
+// פונקציה לשמירת הטבלה כ-PDF
 function saveCalculations(event) {
     event.preventDefault(); // מניעת התנהגות ברירת מחדל של הקישור
     if (calculationRows.length === 0) {
@@ -487,7 +489,7 @@ function saveCalculations(event) {
     tempTable.style.cssText = `
         width: 100%;
         border-collapse: collapse;
-        font-family: 'Noto Sans Hebrew', 'Helvetica', sans-serif;
+        font-family: 'Helvetica', sans-serif;
     `;
     const thead = document.createElement('thead');
     thead.innerHTML = `
@@ -578,7 +580,7 @@ function saveCalculations(event) {
 
             const firstPageTable = document.createElement('table');
             firstPageTable.className = 'calc-table';
-            firstPageTable.style.cssText = 'width: 100%; border-collapse: collapse; font-family: "Noto Sans Hebrew", "Helvetica", sans-serif;';
+            firstPageTable.style.cssText = 'width: 100%; border-collapse: collapse; font-family: "Helvetica", sans-serif;';
             firstPageTable.appendChild(thead.cloneNode(true));
             firstPageTable.appendChild(firstPageTbody);
 
@@ -618,7 +620,7 @@ function saveCalculations(event) {
 
                 const secondPageTable = document.createElement('table');
                 secondPageTable.className = 'calc-table';
-                secondPageTable.style.cssText = 'width: 100%; border-collapse: collapse; font-family: "Noto Sans Hebrew", "Helvetica", sans-serif;';
+                secondPageTable.style.cssText = 'width: 100%; border-collapse: collapse; font-family: "Helvetica", sans-serif;';
                 secondPageTable.appendChild(thead.cloneNode(true));
                 secondPageTable.appendChild(secondPageTbody);
 

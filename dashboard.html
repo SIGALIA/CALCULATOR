@@ -3,15 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Calculations Dashboard</title>
+  <title>My Calculations - Electric Cables Cross Section Calculator</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <!-- Feather Icons CDN -->
   <script src="https://unpkg.com/feather-icons"></script>
+  <!-- Add html2canvas and jspdf libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
+
   <!-- Header with BES Cal Logo and User Icon -->
   <header class="site-header">
     <a href="index.html" class="logo-container">
@@ -22,35 +25,29 @@
     </div>
   </header>
 
-  <!-- Hero Section for Logged-In User -->
+  <!-- Hero Section (simplified) without title -->
   <section class="hero logged-in">
     <div class="hero-content logged-in">
-      <h1 class="hero-title">Hello User!</h1>
-      <p class="hero-subtitle">Your calculations dashboard</p>
+      <p class="hero-subtitle">View and manage your saved calculations</p>
     </div>
   </section>
 
   <!-- Dashboard Container -->
-  <div class="container">
-    <div class="right-panel">
-      <div class="table-header">
-        <a href="#" class="new-calculation dashboard-link" onclick="showNewCalculationModal()">New Calculation</a>
-      </div>
-      <div id="projects-container">
-        <div id="no-projects-message" style="display: none; text-align: center; padding: 20px;">
-          <p>No calculations saved yet. Start by creating a new calculation!</p>
-        </div>
+  <div class="container dashboard-container">
+    <div class="dashboard-header">
+      <div class="dashboard-actions">
+        <a href="#" class="new-calculation">
+          <i data-feather="plus" class="action-icon"></i>
+          New Calculation
+        </a>
       </div>
     </div>
-  </div>
 
-  <!-- Delete Confirmation Modal -->
-  <div id="delete-confirmation-modal" class="modal" style="display: none;">
-    <div class="modal-content">
-      <p>Are you sure you want to delete this project?</p>
-      <div class="modal-buttons">
-        <button class="modal-btn" id="delete-yes">Yes</button>
-        <button class="modal-btn" id="delete-no">No</button>
+    <div id="projects-container" class="projects-container">
+      <!-- Projects will be loaded here dynamically -->
+      <div class="no-projects-message" id="no-projects-message" style="display: none;">
+        <p>You don't have any saved calculations yet.</p>
+        <a href="index.html" class="start-calculating-btn">Start Calculating</a>
       </div>
     </div>
   </div>
@@ -60,25 +57,30 @@
     <div class="modal-content calculation-modal-content">
       <span class="close-modal" onclick="closeNewCalculationModal()">×</span>
       <h2 class="calculation-modal-title">New Calculation</h2>
+      
       <div class="calculation-form">
         <div class="form-field">
           <label for="calculation-name">Calculation's Name</label>
           <input type="text" id="calculation-name" placeholder="Name Your Calculation*" required>
         </div>
+        
         <div class="form-row">
           <div class="form-field half">
             <label for="customer-name">Customer</label>
             <input type="text" id="customer-name" placeholder="Customer's Name">
           </div>
+          
           <div class="form-field half">
             <label for="facility-name">Facility</label>
             <input type="text" id="facility-name" placeholder="Facility's Name">
           </div>
         </div>
+        
         <div class="form-field">
           <label for="remarks">Remarks</label>
           <textarea id="remarks" placeholder="Write Your Remarks"></textarea>
         </div>
+        
         <div class="save-button-container">
           <button id="save-calculation-btn" class="save-calculation-btn" onclick="saveNewCalculation()">Save</button>
         </div>
@@ -86,8 +88,27 @@
     </div>
   </div>
 
+  <!-- Delete Confirmation Modal -->
+  <div id="delete-confirmation-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <p>Are you sure you want to delete this calculation?</p>
+      <div class="modal-buttons">
+        <button class="modal-btn" id="delete-yes">Yes</button>
+        <button class="modal-btn" id="delete-no">No</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    initiated by BES engineering consulting and planning ltd © designed by <a href="https://www.sigalia-studio.com/" target="_blank">sigalia-studio.co.il</a> | <a href="https://bes-eng.co.il" target="_blank">bes-eng.co.il</a>
+  </footer>
+
   <script src="login.js"></script>
   <script src="calculator.js"></script>
   <script src="dashboard.js"></script>
-</body>
+  <!-- Initialize Feather Icons -->
+  <script>
+    feather.replace();
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91bb84e62b114523',t:'MTc0MTE5NzY5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
