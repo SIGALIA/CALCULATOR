@@ -311,10 +311,11 @@ function downloadProjectAsPDF(index) {
     // יצירת טבלה זמנית
     const tempTable = document.createElement('table');
     tempTable.className = 'calc-table';
+    tempTable.setAttribute('dir', 'auto'); // הוספת כיוון טקסט אוטומטי
     tempTable.style.cssText = `
         width: 100%;
         border-collapse: collapse;
-        font-family: 'Helvetica', sans-serif;
+        font-family: 'Noto Sans Hebrew', 'Helvetica', sans-serif; /* תמיכה בעברית */
     `;
     const thead = document.createElement('thead');
     thead.innerHTML = `
@@ -405,7 +406,8 @@ function downloadProjectAsPDF(index) {
 
             const firstPageTable = document.createElement('table');
             firstPageTable.className = 'calc-table';
-            firstPageTable.style.cssText = 'width: 100%; border-collapse: collapse; font-family: "Helvetica", sans-serif;';
+            firstPageTable.setAttribute('dir', 'auto'); // הוספת כיוון טקסט אוטומטי
+            firstPageTable.style.cssText = 'width: 100%; border-collapse: collapse; font-family: "Noto Sans Hebrew", "Helvetica", sans-serif;'; // תמיכה בעברית
             firstPageTable.appendChild(thead.cloneNode(true));
             firstPageTable.appendChild(firstPageTbody);
 
@@ -445,7 +447,8 @@ function downloadProjectAsPDF(index) {
 
                 const secondPageTable = document.createElement('table');
                 secondPageTable.className = 'calc-table';
-                secondPageTable.style.cssText = 'width: 100%; border-collapse: collapse; font-family: "Helvetica", sans-serif;';
+                secondPageTable.setAttribute('dir', 'auto'); // הוספת כיוון טקסט אוטומטי
+                secondPageTable.style.cssText = 'width: 100%; border-collapse: collapse; font-family: "Noto Sans Hebrew", "Helvetica", sans-serif;'; // תמיכה בעברית
                 secondPageTable.appendChild(thead.cloneNode(true));
                 secondPageTable.appendChild(secondPageTbody);
 
