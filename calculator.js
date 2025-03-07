@@ -123,8 +123,8 @@ function addRow() {
         return;
     }
     
-    const originalAmpacity = parseInt(ampacityInput.value); // שמירת הערך המקורי
-    if (isNaN(originalAmpacity) || originalAmpacity <= 0) {
+    const ampacity = parseInt(ampacityInput.value);
+    if (isNaN(ampacity) || ampacity <= 0) {
         console.error('נא להזין ערך Ampacity תקין');
         return;
     }
@@ -156,7 +156,7 @@ function addRow() {
     }
     
     const maxImax = cablesTable[cablesTable.length - 1].Imax;
-    let valuesToAdd = originalAmpacity > maxImax ? splitValue(originalAmpacity) : [originalAmpacity];
+    let valuesToAdd = ampacity > maxImax ? splitValue(ampacity) : [ampacity];
     
     for (let i = 0; i < valuesToAdd.length; i++) {
         let value = valuesToAdd[i];
@@ -168,7 +168,6 @@ function addRow() {
         
         calculationRows.push({
             description: description,
-            originalAmpacity: originalAmpacity, // שמירת הערך המקורי
             ampacity: value,
             power: power,
             material: material,
@@ -266,7 +265,7 @@ function calculateFactorClick() {
                 } else if (currentCableIndex === cablesTable.length - 1) {
                     console.log("נדרשת חלוקה של שורה", i, "לשני כבלים נפרדים");
                     
-                    const originalAmpacity = calculationRows[i].originalAmpacity; // שימוש בערך המקורי
+                    const originalAmpacity = calculationRows[i].ampacity;
                     const originalDescription = calculationRows[i].description;
                     const originalPower = calculationRows[i].power;
                     const originalMaterial = calculationRows[i].material;
@@ -283,7 +282,6 @@ function calculateFactorClick() {
                         
                         calculationRows.splice(i + j, 0, {
                             description: originalDescription,
-                            originalAmpacity: originalAmpacity, // שמירת הערך המקורי
                             ampacity: splitAmpacity,
                             power: originalPower,
                             material: originalMaterial,
@@ -335,7 +333,6 @@ function refreshTable() {
         const originalIndex = calculationRows.length - 1 - i;
         newRow.innerHTML = 
             '<td>' + (row.description || '-') + '</td>' +
-            '<td><b>' + row.originalAmpacity + '</b></td>' + // עמודה חדשה לערך המקורי
             '<td><b>' + row.ampacity + '</b></td>' +
             '<td>' + (row.power || '-') + '</td>' +
             '<td>' + (row.wiring || '-') + '</td>' +
@@ -435,7 +432,9 @@ function saveNewCalculation() {
     // Close modal and redirect to dashboard with reload
     closeNewCalculationModal();
     window.location.href = 'dashboard.html'; // Redirect to dashboard to reload projects
-}// פונקציה לשמירת הטבלה כ-PDF
+}
+
+// פונקציה לשמירת הטבלה כ-PDF
 function saveCalculations(event) {
     event.preventDefault(); // מניעת התנהגות ברירת מחדל של הקישור
     if (calculationRows.length === 0) {
@@ -496,7 +495,6 @@ function saveCalculations(event) {
     thead.innerHTML = `
         <tr>
             <th style="border-bottom: 1px solid #333333; padding: 8pt; font-size: 8pt; background-color: #f0f0f0; color: #000000; text-align: left; white-space: nowrap;">Item Description</th>
-            <th style="border-bottom: 1px solid #333333; padding: 8pt; font-size: 8pt; background-color: #f0f0f0; color: #000000; text-align: center; white-space: nowrap;">Original Ampacity</th>
             <th style="border-bottom: 1px solid #333333; padding: 8pt; font-size: 8pt; background-color: #f0f0f0; color: #000000; text-align: center; white-space: nowrap;">Ampacity</th>
             <th style="border-bottom: 1px solid #333333; padding: 8pt; font-size: 8pt; background-color: #f0f0f0; color: #000000; text-align: center; white-space: nowrap;">Power [Kw]</th>
             <th style="border-bottom: 1px solid #333333; padding: 8pt; font-size: 8pt; background-color: #f0f0f0; color: #000000; text-align: center; white-space: nowrap;">3 Wire/Single</th>
@@ -514,7 +512,6 @@ function saveCalculations(event) {
         const reserveColor = row.reserve < 0 ? 'red' : 'green';
         tr.innerHTML = `
             <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: left; width: 30%;">${row.description || '-'}</td>
-            <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;"><b>${row.originalAmpacity}</b></td>
             <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;"><b>${row.ampacity}</b></td>
             <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 30px; max-width: 30px;">${row.power || '-'}</td>
             <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;">${row.wiring || '-'}</td>
@@ -570,7 +567,6 @@ function saveCalculations(event) {
                 const reserveColor = row.reserve < 0 ? 'red' : 'green';
                 tr.innerHTML = `
                     <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: left; width: 30%;">${row.description || '-'}</td>
-                    <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;"><b>${row.originalAmpacity}</b></td>
                     <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;"><b>${row.ampacity}</b></td>
                     <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 30px; max-width: 30px;">${row.power || '-'}</td>
                     <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;">${row.wiring || '-'}</td>
@@ -611,7 +607,6 @@ function saveCalculations(event) {
                     const reserveColor = row.reserve < 0 ? 'red' : 'green';
                     tr.innerHTML = `
                         <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: left; width: 30%;">${row.description || '-'}</td>
-                        <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;"><b>${row.originalAmpacity}</b></td>
                         <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;"><b>${row.ampacity}</b></td>
                         <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 30px; max-width: 30px;">${row.power || '-'}</td>
                         <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;">${row.wiring || '-'}</td>
