@@ -432,9 +432,7 @@ function saveNewCalculation() {
     // Close modal and redirect to dashboard with reload
     closeNewCalculationModal();
     window.location.href = 'dashboard.html'; // Redirect to dashboard to reload projects
-}
-
-// פונקציה לשמירת הטבלה כ-PDF
+}// פונקציה לשמירת הטבלה כ-PDF
 function saveCalculations(event) {
     event.preventDefault(); // מניעת התנהגות ברירת מחדל של הקישור
     if (calculationRows.length === 0) {
@@ -486,11 +484,10 @@ function saveCalculations(event) {
     // יצירת טבלה זמנית
     const tempTable = document.createElement('table');
     tempTable.className = 'calc-table';
-    tempTable.setAttribute('dir', 'auto'); // הוספת כיוון טקסט אוטומטי
     tempTable.style.cssText = `
         width: 100%;
         border-collapse: collapse;
-        font-family: 'Noto Sans Hebrew', 'Helvetica', sans-serif; /* תמיכה בעברית */
+        font-family: 'Noto Sans Hebrew', 'Helvetica', sans-serif;
     `;
     const thead = document.createElement('thead');
     thead.innerHTML = `
@@ -581,8 +578,7 @@ function saveCalculations(event) {
 
             const firstPageTable = document.createElement('table');
             firstPageTable.className = 'calc-table';
-            firstPageTable.setAttribute('dir', 'auto'); // הוספת כיוון טקסט אוטומטי
-            firstPageTable.style.cssText = 'width: 100%; border-collapse: collapse; font-family: "Noto Sans Hebrew", "Helvetica", sans-serif;'; // תמיכה בעברית
+            firstPageTable.style.cssText = 'width: 100%; border-collapse: collapse; font-family: "Noto Sans Hebrew", "Helvetica", sans-serif;';
             firstPageTable.appendChild(thead.cloneNode(true));
             firstPageTable.appendChild(firstPageTbody);
 
@@ -622,8 +618,7 @@ function saveCalculations(event) {
 
                 const secondPageTable = document.createElement('table');
                 secondPageTable.className = 'calc-table';
-                secondPageTable.setAttribute('dir', 'auto'); // הוספת כיוון טקסט אוטומטי
-                secondPageTable.style.cssText = 'width: 100%; border-collapse: collapse; font-family: "Noto Sans Hebrew", "Helvetica", sans-serif;'; // תמיכה בעברית
+                secondPageTable.style.cssText = 'width: 100%; border-collapse: collapse; font-family: "Noto Sans Hebrew", "Helvetica", sans-serif;';
                 secondPageTable.appendChild(thead.cloneNode(true));
                 secondPageTable.appendChild(secondPageTbody);
 

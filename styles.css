@@ -1,8 +1,6 @@
 @charset "utf-8";
 /* Import Poppins font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-/* Import Noto Sans Hebrew font for Hebrew support */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;700&display=swap');
 
 /* Global Reset */
 * {
@@ -164,9 +162,7 @@ body {
 .hero.logged-in .hero-subtitle {
   font-size: 18px;
   margin-bottom: 0;
-}
-
-/* Main Container for Calculator */
+}/* Main Container for Calculator */
 .container {
   background: #fff;
   border-radius: 10px;
@@ -266,6 +262,8 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   padding: 10px 5px;
+  font-family: 'Noto Sans Hebrew', sans-serif; /* Updated for Hebrew support */
+  direction: rtl; /* Ensure correct text direction for Hebrew */
 }
 .calc-table th,
 .calc-table td {
@@ -273,6 +271,10 @@ body {
   border-bottom: 1px solid #CBCBCB;
   padding: 10px 5px;
   white-space: normal;
+}
+.calc-table td {
+  font-family: 'Noto Sans Hebrew', sans-serif; /* Updated for Hebrew support */
+  direction: rtl; /* Ensure correct text direction for Hebrew */
 }
 .calc-table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
@@ -446,32 +448,6 @@ body {
   margin-right: 8px;
   vertical-align: middle;
   fill: currentColor;
-}
-
-/* Table Styles */
-.calc-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: center;
-  font-size: 13px;
-  box-shadow: none;
-}
-.calc-table th {
-  background-color: #4015A7;
-  color: #fff;
-  font-weight: 600;
-  text-transform: uppercase;
-  padding: 10px 5px;
-}
-.calc-table th,
-.calc-table td {
-  border: none;
-  border-bottom: 1px solid #CBCBCB;
-  padding: 10px 5px;
-  white-space: normal;
-}
-.calc-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
 }
 
 /* Delete Button Style */
