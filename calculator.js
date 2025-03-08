@@ -3,7 +3,7 @@
 // טבלת ערכי Imax ו-S המתאימים
 const cablesTable = [
     { Imax: 111, S: "5x16" },
-    { Imax: 143, S: "3x25+18" },
+    { Imax: 143, S: "3x25+16" },
     { Imax: 173, S: "3x35+16" },
     { Imax: 205, S: "3x50+25" },
     { Imax: 252, S: "3x70+35" },
@@ -167,6 +167,7 @@ function addRow() {
         const reserve = Math.round(((correctedImax - value) / correctedImax) * 100);
         
         calculationRows.push({
+            originalAmpacity: ampacity, // שמירת הערך המקורי שהמשתמש הזין
             description: description,
             ampacity: value,
             power: power,
@@ -270,6 +271,7 @@ function calculateFactorClick() {
                     const originalPower = calculationRows[i].power;
                     const originalMaterial = calculationRows[i].material;
                     const originalWiring = calculationRows[i].wiring;
+                    const originalOriginalAmpacity = calculationRows[i].originalAmpacity; // שמירת ה-VALUE המקורי
                     
                     calculationRows.splice(i, 1);
                     
@@ -281,6 +283,7 @@ function calculateFactorClick() {
                         const splitReserve = Math.round(((splitCorrectedImax - splitAmpacity) / splitCorrectedImax) * 100);
                         
                         calculationRows.splice(i + j, 0, {
+                            originalAmpacity: originalOriginalAmpacity, // שימור הערך המקורי
                             description: originalDescription,
                             ampacity: splitAmpacity,
                             power: originalPower,
@@ -333,6 +336,7 @@ function refreshTable() {
         const originalIndex = calculationRows.length - 1 - i;
         newRow.innerHTML = 
             '<td>' + (row.description || '-') + '</td>' +
+            '<td>' + (row.originalAmpacity || '-') + '</td>' + // הצגת הערך המקורי בעמודה החדשה
             '<td><b>' + row.ampacity + '</b></td>' +
             '<td>' + (row.power || '-') + '</td>' +
             '<td>' + (row.wiring || '-') + '</td>' +
@@ -344,9 +348,7 @@ function refreshTable() {
         
         tableBody.appendChild(newRow);
     }
-}
-
-// פונקציה להצגת המודל החדש לשמירת חישוב
+}// פונקציה להצגת המודל החדש לשמירת חישוב
 function showNewCalculationModal() {
     // Reset form
     document.getElementById('calculation-name').value = currentProject ? currentProject.name || '' : '';
@@ -495,6 +497,7 @@ function saveCalculations(event) {
     thead.innerHTML = `
         <tr>
             <th style="border-bottom: 1px solid #333333; padding: 8pt; font-size: 8pt; background-color: #f0f0f0; color: #000000; text-align: left; white-space: nowrap;">Item Description</th>
+            <th style="border-bottom: 1px solid #333333; padding: 8pt; font-size: 8pt; background-color: #f0f0f0; color: #000000; text-align: center; white-space: nowrap;">VALUE</th>
             <th style="border-bottom: 1px solid #333333; padding: 8pt; font-size: 8pt; background-color: #f0f0f0; color: #000000; text-align: center; white-space: nowrap;">Ampacity</th>
             <th style="border-bottom: 1px solid #333333; padding: 8pt; font-size: 8pt; background-color: #f0f0f0; color: #000000; text-align: center; white-space: nowrap;">Power [Kw]</th>
             <th style="border-bottom: 1px solid #333333; padding: 8pt; font-size: 8pt; background-color: #f0f0f0; color: #000000; text-align: center; white-space: nowrap;">3 Wire/Single</th>
@@ -512,6 +515,7 @@ function saveCalculations(event) {
         const reserveColor = row.reserve < 0 ? 'red' : 'green';
         tr.innerHTML = `
             <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: left; width: 30%;">${row.description || '-'}</td>
+            <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;">${row.originalAmpacity || '-'}</td>
             <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;"><b>${row.ampacity}</b></td>
             <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 30px; max-width: 30px;">${row.power || '-'}</td>
             <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;">${row.wiring || '-'}</td>
@@ -567,6 +571,7 @@ function saveCalculations(event) {
                 const reserveColor = row.reserve < 0 ? 'red' : 'green';
                 tr.innerHTML = `
                     <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: left; width: 30%;">${row.description || '-'}</td>
+                    <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;">${row.originalAmpacity || '-'}</td>
                     <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;"><b>${row.ampacity}</b></td>
                     <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 30px; max-width: 30px;">${row.power || '-'}</td>
                     <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;">${row.wiring || '-'}</td>
@@ -607,6 +612,7 @@ function saveCalculations(event) {
                     const reserveColor = row.reserve < 0 ? 'red' : 'green';
                     tr.innerHTML = `
                         <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: left; width: 30%;">${row.description || '-'}</td>
+                        <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;">${row.originalAmpacity || '-'}</td>
                         <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;"><b>${row.ampacity}</b></td>
                         <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 30px; max-width: 30px;">${row.power || '-'}</td>
                         <td style="border-bottom: 1px solid #333333; padding: 12pt; font-size: 10pt; text-align: center; min-width: 40px; max-width: 40px;">${row.wiring || '-'}</td>
